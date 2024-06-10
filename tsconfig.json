@@ -1,9 +1,9 @@
 {
 	"compilerOptions": {
 		"outDir": "build",
-		"target": "ES2020",
-		"lib": ["ESNext"],
-		"module": "ES2020",
+		"target": "ES2021",
+		"lib": ["ES2021"],
+		"module": "ESNext",
 		"moduleResolution": "Node",
 		"esModuleInterop": true,
 		"isolatedModules": true,

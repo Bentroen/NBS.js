@@ -1,5 +1,4 @@
 {
-	"type": "module",
 	"name": "@encode42/nbs.js",
 	"description": "Robust API for reading and writing OpenNBS files.",
 	"version": "6.0.0-alpha3",
@@ -19,13 +18,17 @@
 	"homepage": "https://encode42.github.io/nbs.js/",
 	"license": "MIT",
 	"keywords": ["api", "minecraft", "nbs", "noteblock", "onbs"],
-	"main": "dist/index.js",
+	"main": "dist/cjs.js",
+	"module": "dist/esm.js",
+	"browser": "dist/umd.js",
 	"types": "dist/index.d.ts",
 	"files": ["dist", "changelog.md"],
 	"sideEffects": false,
 	"scripts": {
-		"test": "biome format . --write && biome lint . && jest",
-		"build": "pnpm run test && tsc --build && tsup",
+		"test": "biome lint . && biome format . --write && jest",
+		"build": "pnpm run test && pnpm run build:base && pnpm run build:bundle",
+		"build:base": "tsc --build",
+		"build:bundle": "rollup -c",
 		"build:publish": "pnpm run build && pnpm publish",
 		"build:docs": "typedoc"
 	},
@@ -33,21 +36,23 @@
 		"preset": "ts-jest",
 		"testEnvironment": "node"
 	},
-	"tsup": {
-		"entry": ["build/**/*.js"],
-		"splitting": true,
-		"format": ["esm"],
-		"skipNodeModulesBundle": true
-	},
 	"engines": {
 		"node": ">=18"
 	},
 	"packageManager": "pnpm@8.15.1",
 	"devDependencies": {
 		"@biomejs/biome": "^1.5.3",
+		"@rollup/plugin-commonjs": "^25.0.7",
+		"@rollup/plugin-json": "^6.1.0",
+		"@rollup/plugin-node-resolve": "^15.2.3",
 		"@types/jest": "^29.5.12",
 		"@types/node": "^20.11.17",
+		"esbuild": "^0.21.5",
 		"jest": "^29.7.0",
+		"rollup": "^4.9.6",
+		"rollup-plugin-dts": "^6.1.0",
+		"rollup-plugin-esbuild": "^6.1.1",
+		"rollup-plugin-node-externals": "^7.0.1",
 		"ts-jest": "^29.1.2",
 		"tsup": "^8.0.2",
 		"typedoc": "^0.25.8",
