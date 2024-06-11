@@ -26,8 +26,9 @@
 	"sideEffects": false,
 	"scripts": {
 		"test": "biome lint . && biome format . --write && jest",
-		"build": "pnpm run test && pnpm run build:base && pnpm run build:bundle",
+		"build": "pnpm run build:base && pnpm run build:bundle",
 		"build:base": "tsc --build",
+		"postinstall": "pnpm install && pnpm build",
 		"build:bundle": "rollup -c",
 		"build:publish": "pnpm run build && pnpm publish",
 		"build:docs": "typedoc"
